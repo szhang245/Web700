@@ -75,7 +75,7 @@ function getAllStudents() {
             if (dataCollection.students.length > 0) {
                 resolve(dataCollection.students);
             } else {
-                reject("No results returned");
+                reject("No students results returned");
             }
         }
     );
@@ -87,7 +87,7 @@ function getCourses() {
             if (dataCollection.courses.length > 0) {
                 resolve(dataCollection.courses);
             } else {
-                reject("No results returned");
+                reject("No courses results returned");
             }
         }
     )
@@ -105,7 +105,7 @@ function getTAs() {
             if (TAs.length > 0) {
                 resolve(TAs)
             } else {
-                reject("No results returned")
+                reject("No TAs results returned")
             }
         }
     )
