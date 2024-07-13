@@ -137,11 +137,36 @@ function getStudentByNum(num) {
     )
 }
 
+function addStudent(studentData) {
+    return new Promise(
+        (resolve, reject) => {
+
+            if(!studentData.TA){
+                studentData.TA = false;
+            } else {
+                studentData.TA = true;
+            }
+
+            var student_id = dataCollection.students.length + 1;
+            studentData.studentNum = student_id;
+            dataCollection.students.push(studentData);
+            
+            if (dataCollection.students.length > 0) {
+                resolve(dataCollection.students);
+            } else {
+                reject("No students results returned");
+            }
+            
+        }
+    )
+}
+
 module.exports = {
     initialize,
     getAllStudents,
     getCourses,
     getTAs,
     getStudentsByCourse,
-    getStudentByNum
+    getStudentByNum,
+    addStudent
 }

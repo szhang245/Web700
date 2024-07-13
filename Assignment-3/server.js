@@ -1,10 +1,10 @@
 /*********************************************************************************
-*  WEB700 – Assignment 3
+*  WEB700 – Assignment 4
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.
 *  No part of this assignment has been copied manually or electronically from any other source
 *  (including web sites) or distributed to other students.
 *
-*  Name: _Shuai Zhang_ Student ID: _136898236_ Date: _June 10, 2024_
+*  Name: _Shuai Zhang_ Student ID: _136898236_ Date: _July 13, 2024_
 *
 ********************************************************************************/
 var HTTP_PORT = process.env.HTTP_PORT || 8080;
@@ -14,6 +14,8 @@ var app = express();
 var collegeData = require("./modules/collegeData");
 
 app.set('json spaces', 2)
+app.use(express.static("public"))
+app.use(express.urlencoded({ extended: true }))
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "/views/home.html"));
@@ -25,6 +27,19 @@ app.get("/about", (req, res) => {
 
 app.get("/htmlDemo", (req, res) => {
     res.sendFile(path.join(__dirname, "/views/htmlDemo.html"));
+})
+
+app.get("/students/add", (req, res) => {
+    res.sendFile(path.join(__dirname, "/views/addStudent.html"));
+})
+
+app.post("/students/add", (req, res) => {
+    collegeData.addStudent(req.body)
+    .then( () => {
+        res.redirect('/students')
+    }
+
+    )
 })
 
 app.get("/students", (req, res) => {
