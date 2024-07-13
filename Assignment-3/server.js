@@ -7,7 +7,9 @@
 *  Name: _Shuai Zhang_ Student ID: _136898236_ Date: _July 13, 2024_
 *
 ********************************************************************************/
-var HTTP_PORT = process.env.HTTP_PORT || 8080;
+//var HTTP_PORT = process.env.HTTP_PORT || 8080;
+var HTTP_PORT = process.env.PORT || 8080;
+const HOST = '0.0.0.0';
 var express = require("express");
 var path = require("path");
 var app = express();
@@ -124,7 +126,7 @@ app.all(
 
 collegeData.initialize()
 .then( () => {
-    app.listen(HTTP_PORT, () => {console.log("server listening on port: " + HTTP_PORT)});
+    app.listen(HTTP_PORT, HOST, () => {console.log("server listening on port: " + HTTP_PORT)});
 }
 )
 .catch( err => {
