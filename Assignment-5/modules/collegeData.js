@@ -1,0 +1,192 @@
+const fs = require('node:fs');
+
+class Data{
+    students;
+    courses;
+
+    constructor(setStudents = '', setCourses = ''){
+        this.students = setStudents;
+        this.courses = setCourses;
+    }
+
+}
+
+var dataCollection = null;
+
+var studentsfile = './data/students.json';
+var coursesfile = './data/courses.json';
+
+initialize = () => {
+
+    function studentdatafromfile() {
+        return new Promise (
+            (resolve, reject) => {
+                fs.readFile(studentsfile, 'utf8', (err, datafromfile) => {
+                    if (err) {
+                        reject(`unable to read ${studentsfile}`);
+                        return;
+                    }
+                    let data = JSON.parse(datafromfile);
+                    resolve(data);
+                }
+
+                )
+            }
+        )
+    }
+
+    function coursedatafromfile(msg) {
+        return new Promise (
+            (resolve, reject) => {
+                fs.readFile(coursesfile, 'utf8', (err, datafromfile) => {
+                    if (err) {
+                        reject(`unable to read ${coursesfile}`);
+                        return;
+                    }
+                    let data = JSON.parse(datafromfile);
+                    resolve([msg, data]);
+                }
+
+                )
+            }
+        )
+    }
+
+    return new Promise (
+        (resolve, reject) => {
+            studentdatafromfile()
+            .then(coursedatafromfile)
+            .then( (final_data) => {
+                dataCollection = new Data(final_data[0], final_data[1])
+                console.log("Successful initialization")
+                resolve(dataCollection)
+            })
+            .catch(function(errmsg) {
+                reject(errmsg);
+            });
+        }
+    )
+
+}
+
+function getAllStudents() {
+    return new Promise(
+        (resolve, reject) => {
+            if (dataCollection.students.length > 0) {
+                resolve(dataCollection.students);
+            } else {
+                reject("No students results returned");
+            }
+        }
+    );
+}
+
+function getCourses() {
+    return new Promise(
+        (resolve, reject) => {
+            if (dataCollection.courses.length > 0) {
+                resolve(dataCollection.courses);
+            } else {
+                reject("No courses results returned");
+            }
+        }
+    )
+}
+
+function getStudentsByCourse(course) {
+    return new Promise(
+        (resolve, reject) => {
+            let course_students = dataCollection.students.filter( student => student.course === course);
+            if (course_students.length > 0) {
+                resolve(course_students)
+            } else {
+                reject("No students results returned")
+            }
+        }
+    )
+}
+
+function getStudentByNum(num) {
+    return new Promise(
+        (resolve, reject) => {
+            let student_info = dataCollection.students.find( student => student.studentNum === parseInt(num))
+            if (student_info) {
+                resolve(student_info)
+            } else {
+                reject("no results returned")
+            }
+        }
+    )
+}
+
+function getCourseById(id) {
+    return new Promise(
+        (resolve, reject) => {
+            let course_info = dataCollection.courses.find( course => course.courseId === parseInt(id) );
+            if (course_info) {
+                resolve(course_info)
+            } else {
+                reject("query returned 0 results")
+            }
+        }
+    )
+}
+
+function addStudent(studentData) {
+    return new Promise(
+        (resolve, reject) => {
+
+            if(!studentData.TA){
+                studentData.TA = false;
+            } else {
+                studentData.TA = true;
+            }
+
+            var student_id = dataCollection.students.length + 1;
+            studentData.studentNum = student_id;
+            dataCollection.students.push(studentData);
+            
+            if (dataCollection.students.length > 0) {
+                resolve(dataCollection.students);
+            } else {
+                reject("No students results returned");
+            }
+            
+        }
+    )
+}
+
+function updateStudent(studentData) {
+    return new Promise(
+        (resolve, reject) => {
+            
+            studentData.studentNum = parseInt(studentData.studentNum);
+            const student_info = dataCollection.students.find( student => student.studentNum === studentData.studentNum);
+
+            if(!studentData.TA){
+                studentData.TA = false;
+            } else {
+                studentData.TA = true;
+            }
+
+            if (student_info) {
+                const student_index = dataCollection.students.indexOf(student_info);
+                dataCollection.students[student_index] = studentData
+                resolve()
+            } else {
+                reject("There is no id for this student.")
+            }
+        }
+    )
+}
+
+module.exports = {
+    initialize,
+    getAllStudents,
+    getCourses,
+    getStudentsByCourse,
+    getStudentByNum,
+    addStudent,
+    getCourseById,
+    updateStudent
+}

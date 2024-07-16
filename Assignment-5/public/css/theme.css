@@ -1,0 +1,64 @@
+@import url(https://fonts.googleapis.com/css2?family=Pacifico);
+
+.bg-light{
+    background-color: #16e9a5!important;
+    box-shadow: 6px 11px 7px 0px rgba(230,115,161,1);
+}
+
+.navbar-light .navbar-brand{
+    font-family: 'Pacifico';
+    color: #4aaeb5;
+    text-shadow: 6px 11px 1px 0px rgba(224,61,121,1);
+}
+
+.nav-link{
+    font-family: 'Pacifico';
+    color: #ae517d;
+}
+
+.nav-link:hover{
+    color: #cb3454;
+}
+
+body, html{
+    background: linear-gradient(to bottom right, rgb(56, 100, 194), rgb(38, 174, 189));
+    background-attachment: fixed;
+}
+
+.btn-primary{
+    background-color: #956a86;
+    /*background: linear-gradient(to right, red , yellow);*/
+    box-shadow: 6px 8px 5px 0px rgba(183,116,232,1);
+}
+
+.btn-primary:hover{
+    background-color: #8759a6;
+    box-shadow: 7px 12px 5px 0px rgba(139,28,214,1);
+}
+
+table tr:nth-child(odd) td{
+    background-color: #10d3ef!important;
+    background: linear-gradient(to bottom, rgba(107, 39, 233, 0), rgb(119, 82, 240));
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:#250cc7;
+    text-shadow: 1px 1px 2px rgba(92, 33, 33, 0.2);
+}
+
+a{
+    color: #10d3ef;
+}
+
+a:hover{
+    color: #1069ef;
+}
+
+legend{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #0e499c;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
