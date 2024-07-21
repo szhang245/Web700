@@ -33,7 +33,9 @@ initialize = () => {
 function getAllStudents() {
     return new Promise(
         (resolve, reject) => {
-            Student.findAll()
+            Student.findAll({
+                order: [['studentNum', 'ASC']]
+            })
             .then( (res) => {
                 resolve(res)
             })
@@ -47,7 +49,9 @@ function getAllStudents() {
 function getCourses() {
     return new Promise(
         (resolve, reject) => {
-            Course.findAll()
+            Course.findAll({
+                order: [['courseId', 'ASC']]
+            })
             .then( (res) =>{
                 resolve(res)
             })
