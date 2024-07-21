@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col-md-12">
         <br>
-            <h2>Students</h2>
+            <h2>Students
+                <a href="/students/add" class="btn btn-success float-right">Add New Student</a>
+            </h2>
         <hr />
         <table class="table table-responsive">
             <tr>
@@ -11,6 +13,7 @@
                 <th>Address</th>
                 <th>Status</th>
                 <th>Course ID</th>
+                <th></th>
             </tr>
             {{#each students}}
                 <tr>
@@ -19,7 +22,8 @@
                     <td><a href="mailto:{{email}}">{{email}}</a></td>
                     <td>{{addressStreet}},{{addressCity}},{{addressProvince}}</td>
                     <td>{{status}}</td>
-                    <td><a href="/students?course={{course}}">{{course}}</a></td>
+                    <td><a href="/course/{{course}}">{{course}}</a></td>
+                    <td><a class="btn btn-danger" href="/student/delete/{{studentNum}}" >remove</a></td>
                 </tr>
             {{/each}}
             {{#unless students}}
